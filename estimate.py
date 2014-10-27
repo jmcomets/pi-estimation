@@ -1,3 +1,21 @@
+"""
+Implementations of estimations of Pi, using the Monte Carlo method (darts in a
+unit circle).
+
+Method benchmarks:
+
+>>> n = 100000
+100000
+
+>>> %timeit throw_darts_numpy_random(n)
+10 loops, best of 3: 82 ms per loop
+
+>>> %timeit throw_darts_numpy_random_sample(n)
+1 loops, best of 3: 826 ms per loop
+
+>>> %timeit throw_darts_pure_python(n)
+10 loops, best of 3: 119 ms per loop
+"""
 import sys
 import numpy
 import random
