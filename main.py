@@ -10,7 +10,9 @@ parser.add_argument('iterations', metavar='iterations', type=int,
 parser.add_argument('-m', '--method', type=str,
         choices=estimate.methods, default=estimate.methods[0],
         help='method of computation (optimization)')
-args = parser.parse_args()
+parser.add_argument('--parallel', action='store_true', default=False,
+        help='run using parallel computation')
 
 if __name__ == '__main__':
-    print(estimate.pi(args.iterations))
+    args = parser.parse_args()
+    print(estimate.pi(args.iterations, args.method, args.parallel))
