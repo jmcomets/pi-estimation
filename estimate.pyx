@@ -45,7 +45,7 @@ def throw_darts_numpy_random_sample(amount):
     return hits
 
 def throw_darts_numpy_random_sample_vectorized(amount):
-    # dart throw: numpy random uniform array
+    # dart throw: numpy random uniform array (vectorized transform)
     xs = numpy.random.random(amount)
     ys = numpy.random.random(amount)
     throw = numpy.vectorize(lambda s: s <= 1, otypes=[numpy.uint8])
