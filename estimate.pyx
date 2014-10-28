@@ -8,16 +8,16 @@ Method benchmarks:
 100000
 
 >>> %timeit throw_darts_pure_python(n)
-10 loops, best of 3: 119 ms per loop
+10 loops, best of 3: 166 ms per loop
 
 >>> %timeit throw_darts_numpy_random(n)
-10 loops, best of 3: 82 ms per loop
+10 loops, best of 3: 104 ms per loop
 
 >>> %timeit throw_darts_numpy_random_sample(n)
-1 loops, best of 3: 826 ms per loop
+1 loops, best of 3: 537 ms per loop
 
->>> %timeit throw_darts_numpy_random_sample_vectorized(n)
-10 loops, best of 3: 39.4 ms per loop
+>>>  %timeit throw_darts_numpy_random_sample_vectorized(n)
+10 loops, best of 3: 28.1 ms per loop
 """
 import os
 import sys
@@ -62,10 +62,10 @@ def throw_darts_pure_python(amount):
     return hits
 
 methods = [
-        'numpy_random',
-        'numpy_random_sample',
         'numpy_random_sample_vectorized',
+        'numpy_random',
         'pure_python',
+        'numpy_random_sample',
         ]
 
 def throw_darts(amount, method):
