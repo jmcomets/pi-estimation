@@ -7,14 +7,17 @@ Method benchmarks:
 >>> n = 100000
 100000
 
+>>> %timeit throw_darts_pure_python(n)
+10 loops, best of 3: 119 ms per loop
+
 >>> %timeit throw_darts_numpy_random(n)
 10 loops, best of 3: 82 ms per loop
 
 >>> %timeit throw_darts_numpy_random_sample(n)
 1 loops, best of 3: 826 ms per loop
 
->>> %timeit throw_darts_pure_python(n)
-10 loops, best of 3: 119 ms per loop
+>>> %timeit throw_darts_numpy_random_sample_vectorized(n)
+10 loops, best of 3: 39.4 ms per loop
 """
 import sys
 import numpy
@@ -38,6 +41,14 @@ def throw_darts_numpy_random_sample(amount):
         hits += xs[i]**2 + ys[i]**2 <= 1
     return hits
 
+def throw_darts_numpy_random_sample_vectorized(amount):
+    # dart throw: numpy random uniform array
+    xs = numpy.random.random(amount)
+    ys = numpy.random.random(amount)
+    throw = numpy.vectorize(lambda s: s <= 1, otypes=[numpy.uint8])
+    hits = throw(xs * xs + ys * ys)
+    return numpy.sum(hits)
+
 def throw_darts_pure_python(amount):
     # dart throw: pure python
     hits = 0
@@ -50,6 +61,7 @@ def throw_darts_pure_python(amount):
 methods = (
         'numpy_random',
         'numpy_random_sample',
+        'numpy_random_sample_vectorized',
         'pure_python',
         )
 
