@@ -10,9 +10,6 @@ Method benchmarks:
 >>> %timeit throw_darts_pure_python(n)
 10 loops, best of 3: 166 ms per loop
 
->>> %timeit throw_darts_numpy_random(n)
-10 loops, best of 3: 104 ms per loop
-
 >>> %timeit throw_darts_numpy_random_sample(n)
 1 loops, best of 3: 537 ms per loop
 
@@ -25,15 +22,6 @@ import numpy
 import random
 import multiprocessing
 import functools
-
-def throw_darts_numpy_random(amount):
-    # dart throw: numpy random uniform
-    hits = 0
-    for i in range(int(amount)):
-        x = numpy.random.uniform(0, 1)
-        y = numpy.random.uniform(0, 1)
-        hits += x**2 + y**2 <= 1
-    return hits
 
 def throw_darts_numpy_random_sample(amount):
     # dart throw: numpy random uniform array
@@ -63,7 +51,6 @@ def throw_darts_pure_python(amount):
 
 methods = [
         'numpy_random_sample_vectorized',
-        'numpy_random',
         'pure_python',
         'numpy_random_sample',
         ]
