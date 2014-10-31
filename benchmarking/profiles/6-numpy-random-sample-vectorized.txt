@@ -1,0 +1,10 @@
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    47                                           @profile
+    48                                           def throw_darts_numpy_random_sample_vectorized(amount):
+    49                                               # dart throw: numpy random uniform array (vectorized transform)
+    50         1        19780  19780.0      3.0      xs = numpy.random.random(amount)
+    51         1        19662  19662.0      2.9      ys = numpy.random.random(amount)
+    52         1           64     64.0      0.0      throw = numpy.vectorize(lambda s: s <= 1, otypes=[numpy.uint8])
+    53         1       628962 628962.0     93.9      hits = throw(xs * xs + ys * ys)
+    54         1         1172   1172.0      0.2      return numpy.sum(hits)

@@ -1,0 +1,11 @@
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    55                                           @profile
+    56                                           def throw_darts_pure_python(amount):
+    57                                               # dart throw: pure python
+    58         1            2      2.0      0.0      hits = 0
+    59   1000001       693509      0.7     11.7      for _ in range(int(amount)):
+    60   1000000      1905288      1.9     32.1          x = random.uniform(0, 1)
+    61   1000000      1699462      1.7     28.6          y = random.uniform(0, 1)
+    62   1000000      1638124      1.6     27.6          hits += x**2 + y**2 <= 1
+    63         1            1      1.0      0.0      return hits

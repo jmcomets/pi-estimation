@@ -1,0 +1,11 @@
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    29                                           @profile
+    30                                           def throw_darts_numpy_random(amount):
+    31                                               # dart throw: numpy random uniform
+    32         1            2      2.0      0.0      hits = 0
+    33   1000001       727493      0.7     16.1      for i in range(int(amount)):
+    34   1000000      1192178      1.2     26.3          x = numpy.random.uniform(0, 1)
+    35   1000000      1082365      1.1     23.9          y = numpy.random.uniform(0, 1)
+    36   1000000      1526392      1.5     33.7          hits += x**2 + y**2 <= 1
+    37         1            1      1.0      0.0      return hits
