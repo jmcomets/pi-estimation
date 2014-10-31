@@ -2,20 +2,19 @@ import sys
 import csv
 import math
 import argparse
-from statistics import mean as avg
-from collections import OrderedDict
+import statistics
+import collections
 import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('bench_file', type=argparse.FileType('r'),
-        default=sys.stdin, help='file to read the benchmark output from')
+        default=sys.stdin, help=('file to read the benchmark output from'))
+parser.add_argument('-o', '--output-image', type=argparse.FileType('w'),
+        help='file to save the benchmark plot to')
 
-if __name__ == '__main__':
-    args = parser.parse_args()
-
-    # read data
-    benchs = OrderedDict()
-    reader = csv.reader(args.bench_file)
+def read_benchmarks(bench_file):
+    benchs = collections.OrderedDict()
+    reader = csv.reader(bench_file)
     next(reader) # ignore header
     for line in reader:
         try:
@@ -29,9 +28,9 @@ if __name__ == '__main__':
             bench['times'].append(time)
         except ValueError:
             print('ignored line %s, bad format' % line, file=sys.stderr)
-    args.bench_file.close()
+    return benchs
 
-    # plot data
+def plot_benchmarks(benchs):
     m, n = 1, 1
     xs = list(benchs.keys())
     plt.xlabel('Number of iterations')
@@ -48,7 +47,20 @@ if __name__ == '__main__':
 
     # average time
     sp2 = sp1.twinx()
-    sp2.plot(xs, [avg(b['times']) for b in benchs.values()], c='b')
+    sp2.plot(xs, [statistics.mean(b['times']) for b in benchs.values()], c='b')
     sp2.set_ylabel('Average runtime (s)', color='b')
 
-    plt.show()
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+
+    # plot benchmarks
+    with args.bench_file as fp:
+        benchs = read_benchmarks(fp)
+    plot_benchmarks(benchs)
+
+    # either show or save
+    if args.output_image:
+        plt.savefig(args.output_image)
+    else:
+        plt.show()
