@@ -47,9 +47,13 @@ def plot_benchmarks(benchs):
 
     # average time
     sp2 = sp1.twinx()
+    sp2.set_yscale('log') # linear complexity problem
     sp2.plot(xs, [statistics.mean(b['times']) for b in benchs.values()], c='b')
     sp2.set_ylabel('Average runtime (s)', color='b')
 
+    # hacks
+    sp1.set_ylim((1, 5))
+    sp2.set_ylim((0, 1))
 
 if __name__ == '__main__':
     args = parser.parse_args()
